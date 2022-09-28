@@ -5,6 +5,7 @@ HELP.md
 
 ###Run Folder###
 .run
+*.run.xml
 
 ### STS ###
 .apt_generated
