@@ -1,5 +1,6 @@
 package com.peigo.challenge.accounts.domain.entity;
 
+import com.peigo.challenge.audit.AuditModel;
 import com.peigo.challenge.customer.domain.entity.CustomerEntity;
 import lombok.*;
 
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "account")
 @ToString(exclude = {"customer"})
-public class AccountEntity {
+public class AccountEntity extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

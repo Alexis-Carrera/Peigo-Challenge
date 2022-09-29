@@ -37,7 +37,7 @@ public class TransferServiceImpl implements TransferService {
     private TransferRepository transferRepository;
 
     @Override
-    public TransferResponse createNewWireTransfer(TransferRequest transferRequest) {
+    public TransferResponse createNewWireTransfer(TransferRequest transferRequest, Long customerId) {
 
         Optional<AccountEntity> rootAccountNumberOptional = accountRepository.findByAccountNumber(transferRequest.getRootAccountNumber());
 
@@ -60,6 +60,10 @@ public class TransferServiceImpl implements TransferService {
         if(valueRootBalance.compareTo(transferRequest.getAmount())<0)
         {
             return TransferResponse.builder().httpStatus(HttpStatus.CONFLICT).build();
+        }
+
+        if(!rootAccountNumber.getCustomer().getId().equals(customerId)){
+            return TransferResponse.builder().httpStatus(HttpStatus.UNAUTHORIZED).build();
         }
 
         rootAccountNumber.setBalance(valueRootBalance.subtract(transferRequest.getAmount()));

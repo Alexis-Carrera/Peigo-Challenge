@@ -13,6 +13,6 @@ public interface AccountService {
 
     SingleAccountResponse getAccount(Long accountId);
 
-    AccountResponse createNewAccount(AccountRequest accountRequest);
+    AccountResponse createNewAccount(AccountRequest accountRequest, Long customerId);
 
 }

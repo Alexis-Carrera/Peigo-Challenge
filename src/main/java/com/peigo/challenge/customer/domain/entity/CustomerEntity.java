@@ -1,6 +1,7 @@
 package com.peigo.challenge.customer.domain.entity;
 
 import com.peigo.challenge.accounts.domain.entity.AccountEntity;
+import com.peigo.challenge.audit.AuditModel;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder
 @Entity
 @Table(name = "customer")
-public class CustomerEntity {
+public class CustomerEntity extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

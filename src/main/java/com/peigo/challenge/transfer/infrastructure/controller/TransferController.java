@@ -1,5 +1,6 @@
 package com.peigo.challenge.transfer.infrastructure.controller;
 
+import com.auth0.jwt.JWT;
 import com.peigo.challenge.accounts.application.dto.request.AccountRequest;
 import com.peigo.challenge.accounts.application.dto.response.AccountResponse;
 import com.peigo.challenge.accounts.application.dto.response.SingleAccountResponse;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 
+import static com.peigo.challenge.util.Constant.USER_ID;
+
 @Log4j2
 @RestController
 public class TransferController {
@@ -23,10 +26,11 @@ public class TransferController {
 
     @PostMapping("/transfer/create")
     @Consumes("application/json")
-    public ResponseEntity transferCreate(@RequestBody TransferRequest transferRequest) {
-        //@RequestHeader(name = "token") String token) {
-        //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
-        TransferResponse transferResponse = transferService.createNewWireTransfer(transferRequest);
+    public ResponseEntity transferCreate(@RequestBody TransferRequest transferRequest,
+                                         @RequestHeader(name = "token") String token) {
+        String id = JWT.decode(token).getClaim(USER_ID).asString();
+        Long customerId = Long.valueOf(id);
+        TransferResponse transferResponse = transferService.createNewWireTransfer(transferRequest, customerId);
         return new ResponseEntity(transferResponse.getTransfer(), transferResponse.getHttpStatus());
     }
 

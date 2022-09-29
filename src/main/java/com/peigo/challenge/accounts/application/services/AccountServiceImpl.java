@@ -66,8 +66,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountResponse createNewAccount(AccountRequest accountRequest) {
-        Optional<CustomerEntity> customer = customerRepository.findById(accountRequest.getCustomerId());
+    public AccountResponse createNewAccount(AccountRequest accountRequest, Long customerId) {
+        Optional<CustomerEntity> customer = customerRepository.findById(customerId);
         if(customer.isPresent()){
             Optional<AccountEntity> accountEntity = accountRepository.findByAccountNumber(accountRequest.getAccountNumber());
             if(accountEntity.isPresent()){
@@ -82,7 +82,7 @@ public class AccountServiceImpl implements AccountService {
                             .balance(accountRequest.getBalance())
                             .build();
             accountRepository.save(account);
-            return createAccountResponse(accountRequest.getCustomerId());
+            return createAccountResponse(customerId);
         }
         return AccountResponse.builder()
                 .accounts(AccountList.builder().build())

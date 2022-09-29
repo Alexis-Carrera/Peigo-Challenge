@@ -1,5 +1,6 @@
 package com.peigo.challenge.customer.infrastructure.controller;
 
+import com.auth0.jwt.JWT;
 import com.peigo.challenge.customer.application.dto.request.CreateCustomerRequest;
 import com.peigo.challenge.customer.application.dto.request.UpdateCustomerRequest;
 import com.peigo.challenge.customer.application.dto.response.CustomerResponse;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
 
+import static com.peigo.challenge.util.Constant.USER_ID;
+
 @Log4j2
 @RestController
 public class CustomerController {
@@ -21,27 +24,28 @@ public class CustomerController {
 
     @PostMapping("/customer/create")
     @Consumes("application/json")
-    public ResponseEntity customerCreate(@RequestBody CreateCustomerRequest customerRequest) {
-        //@RequestHeader(name = "token") String token) {
-        //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
+    public ResponseEntity customerCreate(@RequestBody CreateCustomerRequest customerRequest,
+        @RequestHeader(name = "token") String token) {
+        String customerId = JWT.decode(token).getClaim(USER_ID).asString();
         CustomerResponse customerResponse = customerService.createNewCustomer(customerRequest);
         return new ResponseEntity(customerResponse.getCustomer(), customerResponse.getHttpStatus());
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customer")
     @Consumes("application/json")
-    public ResponseEntity getCustomer(@PathVariable Long customerId) {
-        //@RequestHeader(name = "token") String token) {
-        //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
+    public ResponseEntity getCustomer(@RequestHeader(name = "token") String token) {
+        String id = JWT.decode(token).getClaim(USER_ID).asString();
+        Long customerId = Long.valueOf(id);
         CustomerResponse customerResponse = customerService.getCustomer(customerId);
         return new ResponseEntity(customerResponse.getCustomer(), customerResponse.getHttpStatus());
     }
 
-    @PatchMapping("/customer/{customerId}")
+    @PatchMapping("/customer")
     @Consumes("application/json")
-    public ResponseEntity updateCustomer(@PathVariable Long customerId, @RequestBody UpdateCustomerRequest customerRequest) {
-        //@RequestHeader(name = "token") String token) {
-        //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
+    public ResponseEntity updateCustomer(@RequestBody UpdateCustomerRequest customerRequest,
+                                         @RequestHeader(name = "token") String token) {
+        String id = JWT.decode(token).getClaim(USER_ID).asString();
+        Long customerId = Long.valueOf(id);
         CustomerResponse customerResponse = customerService.updateCustomer(customerId, customerRequest);
         return new ResponseEntity(customerResponse, HttpStatus.OK);
     }

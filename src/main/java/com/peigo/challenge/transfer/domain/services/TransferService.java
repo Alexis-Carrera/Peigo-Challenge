@@ -8,6 +8,6 @@ import com.peigo.challenge.transfer.application.dto.response.TransferResponse;
 
 public interface TransferService {
 
-    TransferResponse createNewWireTransfer(TransferRequest transferRequest);
+    TransferResponse createNewWireTransfer(TransferRequest transferRequest, Long customerId);
 
 }

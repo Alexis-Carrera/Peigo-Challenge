@@ -1,5 +1,6 @@
 package com.peigo.challenge.transfer.domain.entity;
 
+import com.peigo.challenge.audit.AuditModel;
 import com.peigo.challenge.customer.domain.entity.CustomerEntity;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table(name = "transfer")
-public class TransferEntity {
+public class TransferEntity extends AuditModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
