@@ -17,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -94,13 +96,26 @@ public class AccountServiceImpl implements AccountService {
         if(customerEntityOptional.isPresent()){
             CustomerEntity customer = customerEntityOptional.get();
             Optional<List<AccountEntity>>  accountEntityList = accountRepository.findAllByCustomer(customer);
+            List<Account> accountList = new ArrayList<>();
+            if (accountEntityList.isPresent())
+            {
+                List<AccountEntity> accountEntityListResult = accountEntityList.get();
+                accountList = accountEntityListResult
+                        .stream()
+                        .map(accountEntity -> Account.builder()
+                                .id(accountEntity.getId())
+                                .accountNumber(accountEntity.getAccountNumber())
+                                .balance(accountEntity.getBalance())
+                                .build()
+                        ).collect(Collectors.toList());
+            }
             AccountList result = AccountList.builder()
                     .customer(Customer.builder()
                             .nationalIdNumber(customer.getNationalIdNumber())
                             .name(customer.getName())
                             .id(customer.getId())
                             .build())
-                    .accounts(accountEntityList.get())
+                    .accounts(accountList)
                     .build();
             return AccountResponse.builder()
                     .accounts(result)

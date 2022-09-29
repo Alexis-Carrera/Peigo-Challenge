@@ -27,7 +27,7 @@ public class AccountController {
         //@RequestHeader(name = "token") String token) {
         //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
         AccountResponse accountInformation = accountService.createNewAccount(accountRequest);
-        return new ResponseEntity(accountInformation, HttpStatus.OK);
+        return new ResponseEntity(accountInformation.getAccounts(), accountInformation.getHttpStatus());
     }
 
     @GetMapping("/accounts/{customerId}")
@@ -36,7 +36,7 @@ public class AccountController {
         //@RequestHeader(name = "token") String token) {
         //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
         AccountResponse accountInformationList = accountService.getAllAccounts(customerId);
-        return new ResponseEntity(accountInformationList, HttpStatus.OK);
+        return new ResponseEntity(accountInformationList.getAccounts(), accountInformationList.getHttpStatus());
     }
 
 
@@ -46,6 +46,6 @@ public class AccountController {
         //@RequestHeader(name = "token") String token) {
         //String userId = JWT.decode(token).getClaim(Constant.USER_ID).asString();
         SingleAccountResponse accountInformation = accountService.getAccount(accountId);
-        return new ResponseEntity(accountInformation, HttpStatus.OK);
+        return new ResponseEntity(accountInformation.getAccount(), accountInformation.getHttpStatus());
     }
 }

@@ -1,4 +1,4 @@
-package com.peigo.challenge.accounts.domain.entity;
+package com.peigo.challenge.transfer.domain.entity;
 
 import com.peigo.challenge.customer.domain.entity.CustomerEntity;
 import lombok.*;
@@ -13,22 +13,19 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "account")
-@ToString(exclude = {"customer"})
-public class AccountEntity {
+@Table(name = "transfer")
+public class TransferEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private CustomerEntity customer;
+    @Size(min = 10, max = 10)
+    private String rootAccountNumber;
 
-    @Column(unique = true)
     @NotNull
     @Size(min = 10, max = 10)
-    private String accountNumber;
+    private String destinationAccountNumber;
 
     private BigDecimal balance;
 }

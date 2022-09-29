@@ -1,5 +1,7 @@
 package com.peigo.challenge.util;
 
+import com.peigo.challenge.accounts.application.dto.request.AccountRequest;
+import com.peigo.challenge.accounts.domain.entity.AccountEntity;
 import com.peigo.challenge.customer.application.dto.request.CreateCustomerRequest;
 import com.peigo.challenge.customer.application.dto.request.UpdateCustomerRequest;
 import com.peigo.challenge.customer.domain.entity.CustomerEntity;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 
 @Service
@@ -20,6 +23,8 @@ public class TestDataInitializationHelper {
     public static final String VALID_IDENTIFICATION = "1720168291";
     public static final String VALID_NAME = "ALEXIS CARRERA";
     public static final String VALID_NAME_2 = "ALEXIS CARRERA2";
+    public static final String VALID_ACCOUNT_NUMBER = "1234567890";
+    public static final BigDecimal VALID_BALANCE = new BigDecimal(1000);
 
     public static final Long INVALID_ID = 55L;
 
@@ -64,6 +69,14 @@ public class TestDataInitializationHelper {
                 .build();
     }
 
+    public CustomerEntity getValidAllInfoCustomer() {
+        return CustomerEntity.builder()
+                .id(ID)
+                .name(VALID_NAME)
+                .nationalIdNumber(VALID_IDENTIFICATION)
+                .build();
+    }
+
     public CreateCustomerRequest getValidCreateCustomerRequest() {
         return CreateCustomerRequest.builder()
                 .name(VALID_NAME)
@@ -74,6 +87,29 @@ public class TestDataInitializationHelper {
     public UpdateCustomerRequest getValidUpdateCustomerRequest() {
         return UpdateCustomerRequest.builder()
                 .name(VALID_NAME_2)
+                .build();
+    }
+
+    public AccountEntity getValidAccount() {
+        return AccountEntity.builder()
+                .accountNumber(VALID_ACCOUNT_NUMBER)
+                .balance(VALID_BALANCE)
+                .build();
+    }
+
+    public AccountEntity getValidAllAccount() {
+        return AccountEntity.builder()
+                .accountNumber(VALID_ACCOUNT_NUMBER)
+                .balance(VALID_BALANCE)
+                .customer(getValidAllInfoCustomer())
+                .build();
+    }
+
+    public AccountRequest getValidAccountRequest() {
+        return AccountRequest.builder()
+                .customerId(ID)
+                .accountNumber(VALID_ACCOUNT_NUMBER)
+                .balance(VALID_BALANCE)
                 .build();
     }
 

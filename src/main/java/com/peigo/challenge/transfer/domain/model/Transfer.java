@@ -1,26 +1,24 @@
-package com.peigo.challenge.accounts.application.dto.response;
+package com.peigo.challenge.transfer.domain.model;
 
-import com.peigo.challenge.accounts.domain.entity.AccountEntity;
 import com.peigo.challenge.accounts.domain.model.Account;
-import com.peigo.challenge.customer.domain.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 import static lombok.AccessLevel.PRIVATE;
+
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
-public class AccountList {
-    Customer customer;
-
-    List<Account> accounts;
-
+public class Transfer {
+    Long transferNumber;
+    Account rootAccount;
+    Account destinationAccount;
 }
