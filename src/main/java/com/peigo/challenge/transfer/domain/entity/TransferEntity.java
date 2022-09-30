@@ -1,7 +1,6 @@
 package com.peigo.challenge.transfer.domain.entity;
 
 import com.peigo.challenge.audit.AuditModel;
-import com.peigo.challenge.customer.domain.entity.CustomerEntity;
 import lombok.*;
 
 import javax.persistence.*;

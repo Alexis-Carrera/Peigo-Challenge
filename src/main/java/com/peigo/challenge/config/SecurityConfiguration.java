@@ -1,7 +1,6 @@
 package com.peigo.challenge.config;
 
 import com.peigo.challenge.auth.AuthenticationFilter;
-import com.peigo.challenge.auth.PasswordAuthenticationException;
 import com.peigo.challenge.auth.PasswordAuthenticationManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

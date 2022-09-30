@@ -4,16 +4,13 @@ import com.auth0.jwt.JWT;
 import com.peigo.challenge.accounts.application.dto.request.AccountRequest;
 import com.peigo.challenge.accounts.application.dto.response.AccountResponse;
 import com.peigo.challenge.accounts.application.dto.response.SingleAccountResponse;
-import com.peigo.challenge.accounts.domain.model.Account;
 import com.peigo.challenge.accounts.domain.services.AccountService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Consumes;
-import java.util.List;
 
 import static com.peigo.challenge.util.Constant.USER_ID;
 

@@ -1,6 +1,5 @@
 package com.peigo.challenge.transfer.application.dto.response;
 
-import com.peigo.challenge.accounts.application.dto.response.AccountList;
 import com.peigo.challenge.transfer.domain.model.Transfer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
